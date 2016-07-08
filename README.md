@@ -1,4 +1,4 @@
-# Camel AMQ QuickStart
+# Spring Boot, Camel and ActiveMQ QuickStart
 
 This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
