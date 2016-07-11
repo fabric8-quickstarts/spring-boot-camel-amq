@@ -36,10 +36,10 @@ or for OpenShift
 oc get pods
 ```
 
-Then the following command will package your funktion and run it on Kubernetes:
+Then the following command will package your app and run it on Kubernetes:
 
 ```
-mvn install fabric8:deploy
+mvn fabric8:run
 ```
 
 To list all the running pods:
