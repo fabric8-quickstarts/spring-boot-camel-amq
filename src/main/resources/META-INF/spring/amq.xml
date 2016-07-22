@@ -5,7 +5,14 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Discovers the ActiveMQ service dynamically -->
-    <bean id="jmsConnectionFactory" class="io.fabric8.mq.core.MQConnectionFactory"/>
+    <bean id="jmsConnectionFactory" class="io.fabric8.mq.core.MQConnectionFactory">
+        <!--
+            If required, you can set the broker credentials using environment variables.
+            Variable names are 'ACTIVEMQ_BROKER_USERNAME' and 'ACTIVEMQ_BROKER_PASSWORD'.
+        -->
+        <property name="userName" value="${activemq.broker.username:#{null}}" />
+        <property name="password" value="${activemq.broker.password:#{null}}" />
+    </bean>
 
     <bean primary="true" id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start" destroy-method="stop">
         <property name="maxConnections" value="8"/>
@@ -26,13 +33,6 @@
         <property name="transacted" value="true"/>
         <property name="cacheLevelName" value="CACHE_CONSUMER" />
         -->
-
-        <!--
-            Set the credentials using environment variables.
-            Variable names are 'ACTIVEMQ_BROKER_USERNAME' and 'ACTIVEMQ_BROKER_PASSWORD'.
-        -->
-        <property name="userName" value="${activemq.broker.username:#{null}}" />
-        <property name="password" value="${activemq.broker.password:#{null}}" />
     </bean>
 
 </beans>
