@@ -12,7 +12,7 @@
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
     </bean>
 
-    <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+    <bean id="jmsConfig" class="org.apache.activemq.camel.component.ActiveMQConfiguration">
         <property name="connectionFactory" ref="pooledConnectionFactory"/>
         <property name="concurrentConsumers" value="10"/>
     </bean>
@@ -26,6 +26,13 @@
         <property name="transacted" value="true"/>
         <property name="cacheLevelName" value="CACHE_CONSUMER" />
         -->
+
+        <!--
+            Set the credentials using environment variables.
+            Variable names are 'ACTIVEMQ_BROKER_USERNAME' and 'ACTIVEMQ_BROKER_PASSWORD'.
+        -->
+        <property name="userName" value="${activemq.broker.username:#{null}}" />
+        <property name="password" value="${activemq.broker.password:#{null}}" />
     </bean>
 
 </beans>
