@@ -20,7 +20,7 @@
           The amq component ensures to use the broker in the kubernetes cluster.
         -->
         <route id="generate-order">
-            <from uri="timer:order?period=5000"/>
+            <from uri="timer:order?period=3000"/>
             <bean ref="orderGenerator" method="generateOrder"/>
             <setHeader headerName="Exchange.FILE_NAME">
                 <!-- defining the header containing a simulated file name -->
