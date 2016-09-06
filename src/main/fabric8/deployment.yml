@@ -1,8 +1,15 @@
 spec:
-  replicas: 1
   template:
     spec:
       containers:
-        - env:
+        -
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: 64Mi
+            limits:
+              cpu: "0.2"
+              memory: 100Mi
+          env:
           - name: ACTIVEMQ_SERVICE_NAME
             value: activemq
