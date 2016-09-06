@@ -4,6 +4,6 @@
                http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
   <extension qualifier="kubernetes">
-    <property name="env.dependencies">mvn:io.fabric8.ipaas.packages/messaging/${fabric8-ipaas.version}/json/kubernetes</property>
+    <property name="env.dependencies">mvn:io.fabric8.ipaas.packages/messaging/${fabric8-ipaas.version}/yml/kubernetes</property>
   </extension>
 </arquillian>
