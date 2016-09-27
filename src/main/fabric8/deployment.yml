@@ -5,11 +5,11 @@ spec:
         -
           resources:
             requests:
-              cpu: "0.1"
-              memory: 100Mi
-            limits:
               cpu: "0.2"
-              memory: 100Mi
+              memory: 256Mi
+            limits:
+              cpu: "1.0"
+              memory: 256Mi
           env:
           - name: ACTIVEMQ_SERVICE_NAME
             value: activemq
