@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
-
-    <!-- Camel Route -->
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <!-- Camel Routes -->
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <!--
           A route to generate a random order every 5th second.
 
@@ -20,18 +15,15 @@
           The amq component ensures to use the broker in the kubernetes cluster.
         -->
         <route id="generate-order">
-            <from uri="timer:order?period=3000"/>
-            <bean ref="orderGenerator" method="generateOrder"/>
-            <setHeader headerName="Exchange.FILE_NAME">
+            <from id="timer" uri="timer:order?period=3000"/>
+            <bean id="new-order" method="generateOrder" ref="orderGenerator"/>
+            <setHeader headerName="Exchange.FILE_NAME" id="set-order-header">
                 <!-- defining the header containing a simulated file name -->
-                <method ref="orderGenerator" method="generateFileName"/>
+                <method method="generateFileName" ref="orderGenerator"/>
             </setHeader>
-
-            <log message="Generating order ${file:name}"/>
-            <to uri="amq:incomingOrders"/>
+            <log id="log-order" message="Generating order ${file:name}"/>
+            <to id="to-incoming-orders" uri="amq:incomingOrders"/>
         </route>
-
-
         <!--
           This route consumes messages from the JMS queue incomingOrders on the ActiveMQ broker within the ESB.
 
@@ -41,26 +33,24 @@
           requirements for either of the <when/> elements will follow another route.
         -->
         <route id="jms-cbr-route" streamCache="true">
-            <from uri="amq:incomingOrders"/>
-            <choice>
-                <when>
+            <from id="from-incoming-orders" uri="amq:incomingOrders"/>
+            <choice id="choose-country">
+                <when id="when-uk">
                     <xpath>/order/customer/country = 'UK'</xpath>
-                    <log message="Sending order ${file:name} to the UK"/>
+                    <log id="log-uk" message="Sending order ${file:name} to the UK"/>
                     <!-- Put additional routing rules for UK messages here -->
                 </when>
-                <when>
+                <when id="when-us">
                     <xpath>/order/customer/country = 'US'</xpath>
-                    <log message="Sending order ${file:name} to the US"/>
+                    <log id="log-us" message="Sending order ${file:name} to the US"/>
                     <!-- Put additional routing rules for US messages here -->
                 </when>
-                <otherwise>
-                    <log message="Sending order ${file:name} to another country"/>
+                <otherwise id="when-other-country">
+                    <log id="log-other" message="Sending order ${file:name} to another country"/>
                     <!-- Put additional routing rules for other messages here -->
                 </otherwise>
             </choice>
-            <log message="Done processing ${file:name}"/>
+            <log id="final-log" message="Done processing ${file:name}"/>
         </route>
-
     </camelContext>
-
 </beans>
