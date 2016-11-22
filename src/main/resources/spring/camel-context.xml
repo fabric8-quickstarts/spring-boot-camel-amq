@@ -14,7 +14,7 @@
 
           The amq component ensures to use the broker in the kubernetes cluster.
         -->
-        <route id="generate-order-route">
+        <route id="generate-order-route" streamCache="true">
             <from id="route-timer" uri="timer:order?period=3000"/>
             <bean id="route-new-order" method="generateOrder" ref="orderGenerator"/>
             <setHeader headerName="Exchange.FILE_NAME" id="route-set-order-header">
