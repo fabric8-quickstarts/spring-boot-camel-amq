@@ -116,7 +116,7 @@
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "Thepassword1$"
+                                        "value": "Thepassword1!"
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
