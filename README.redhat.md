@@ -4,7 +4,7 @@ This quickstart demonstrates how to connect a Spring-Boot application to an Acti
 
 In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes is running.
 
-This quickstart requires the ActiveMQ broker has been deployed and running first. This can be done from the web console from the `Apps` page, and then install the `messaging` application.
+The Red Hat JBoss A-MQ xPaaS product should already be installed and running on your OpenShift installation - see the [documentation](https://docs.openshift.com/enterprise/3.1/using_images/xpaas_images/a_mq.html)
 
 ### Building
 
@@ -30,10 +30,10 @@ Assuming your current shell is connected to OpenShift so that you can type a com
 oc get pods
 ```
 
-Then the following command will package your app and run it on Kubernetes:
+Then the following command will package your app and run it on OpenShift:
 
 ```
-mvn fabric8:run
+mvn fabric8:deploy
 ```
 
 To list all the running pods:
