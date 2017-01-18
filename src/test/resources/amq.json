@@ -38,7 +38,7 @@
                 }
             },
             "metadata": {
-                "name": "activemq"
+                "name": "broker-amq-tcp"
             }
         },
         {
