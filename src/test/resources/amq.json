@@ -12,13 +12,27 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "jboss-amq-62"
+                "name": "jboss-amq-63",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                }
             },
             "spec": {
-                "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq62-openshift",
                 "tags": [
                     {
-                        "name": "1.3"
+                        "name": "1.1",
+                        "annotations": {
+                            "description": "JBoss A-MQ 6.3 broker image.",
+                            "iconClass": "icon-jboss",
+                            "tags": "messaging,amq,jboss,xpaas",
+                            "supports": "amq:6.3,messaging,xpaas:1.1",
+                            "version": "1.1",
+                            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.1"
+                        }
                     }
                 ]
             }
@@ -38,7 +52,13 @@
                 }
             },
             "metadata": {
-                "name": "broker-amq-tcp"
+                "name": "broker-amq-tcp",
+                "labels": {
+                    "application": "broker"
+                },
+                "annotations": {
+                    "description": "The broker's OpenWire port."
+                }
             }
         },
         {
@@ -51,6 +71,12 @@
                 }
             },
             "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "maxSurge": 0
+                    }
+                },
                 "triggers": [
                     {
                         "type": "ImageChange",
@@ -61,7 +87,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:1.3"
+                                "name": "jboss-amq-63:1.1"
                             }
                         }
                     },
@@ -86,7 +112,7 @@
                         "containers": [
                             {
                                 "name": "broker-amq",
-                                "image": "jboss-amq-62",
+                                "image": "jboss-amq-63",
                                 "imagePullPolicy": "Always",
                                 "readinessProbe": {
                                     "exec": {
@@ -121,6 +147,10 @@
                                     {
                                         "name": "AMQ_TRANSPORTS",
                                         "value": "openwire"
+                                    },
+                                    {
+                                        "name": "AMQ_STORAGE_USAGE_LIMIT",
+                                        "value": "100 gb"
                                     }
                                 ]
                             }
