@@ -16,11 +16,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- dependency versions -->
-    <fabric8.version>2.3.2</fabric8.version>
+    <fabric8.version>2.3.7</fabric8.version>
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
 
     <!-- maven plugin versions -->
-    <fabric8.maven.plugin.version>3.5.17</fabric8.maven.plugin.version>
+    <fabric8.maven.plugin.version>3.5.31</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
   </properties>
@@ -70,15 +70,25 @@
       <artifactId>hibernate-validator</artifactId>
     </dependency>
 
-    <!-- Test -->
+    <!-- testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
       <artifactId>arquillian-junit-container</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-openshift</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>io.fabric8</groupId>
-      <artifactId>fabric8-arquillian</artifactId>
+      <artifactId>kubernetes-assertions</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -108,6 +118,7 @@
         <version>${maven-surefire-plugin.version}</version>
         <inherited>true</inherited>
         <configuration>
+          <argLine>-DenableImageStreamDetection=true</argLine>
           <excludes>
             <exclude>**/*KT.java</exclude>
           </excludes>
