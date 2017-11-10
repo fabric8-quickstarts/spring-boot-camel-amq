@@ -13,3 +13,5 @@ spec:
           env:
           - name: ACTIVEMQ_SERVICE_NAME
             value: broker-amq-tcp
+          - name: SPRING_APPLICATION_JSON
+            value: '{"server":{"tomcat":{"max-threads":1}}}'
