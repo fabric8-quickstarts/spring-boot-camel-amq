@@ -11,7 +11,7 @@ spec:
               cpu: "1.0"
 #              memory: 256Mi
           env:
-          - name: ACTIVEMQ_SERVICE_NAME
-            value: broker-amq-tcp
+          - name: AMQP_HOST
+            value: broker-amq-amqp
           - name: SPRING_APPLICATION_JSON
             value: '{"server":{"tomcat":{"max-threads":1}}}'
