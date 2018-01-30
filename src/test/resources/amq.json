@@ -43,8 +43,8 @@
             "spec": {
                 "ports": [
                     {
-                        "port": 61616,
-                        "targetPort": 61616
+                        "port": 5672,
+                        "targetPort": 5672
                     }
                 ],
                 "selector": {
@@ -52,12 +52,12 @@
                 }
             },
             "metadata": {
-                "name": "broker-amq-tcp",
+                "name": "broker-amq-amqp",
                 "labels": {
                     "application": "broker"
                 },
                 "annotations": {
-                    "description": "The broker's OpenWire port."
+                    "description": "The broker's AMQP port."
                 }
             }
         },
@@ -130,8 +130,8 @@
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "name": "tcp",
-                                        "containerPort": 61616,
+                                        "name": "amqp",
+                                        "containerPort": 5672,
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -146,7 +146,7 @@
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
-                                        "value": "openwire"
+                                        "value": "amqp"
                                     },
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",

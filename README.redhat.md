@@ -32,7 +32,7 @@ running pods, and view logs and much more.
 
 ### Running via an S2I Application Template
 
-Applicaiton templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
+Application templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
 
 First, import the Fuse image streams:
 
@@ -46,9 +46,9 @@ Now when you use "Add to Project" button in the OpenShift console, you should se
 
 ### Integration Testing
 
-The example includes a [fabric8 arquillian](https://github.com/fabric8io/fabric8/tree/v2.2.170.redhat/components/fabric8-arquillian) OpenShift Integration Test. 
+The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) OpenShift Integration Test. 
 Once the container image has been built and deployed in OpenShift, the integration test can be run with:
 
     mvn test -Dtest=*KT
 
-The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Integration Testing](https://fabric8.io/guide/testing.html) and [Fabric8 Arquillian Extension](https://fabric8.io/guide/arquillian.html) provide more information on writing full fledged black box integration tests for OpenShift. 
+The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Arquillian Cube](http://arquillian.org/arquillian-cube/) provide more information on writing full fledged black box integration tests for OpenShift. 
