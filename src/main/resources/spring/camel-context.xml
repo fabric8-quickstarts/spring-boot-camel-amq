@@ -22,7 +22,7 @@
                 <method method="generateFileName" ref="orderGenerator"/>
             </setHeader>
             <log id="route-log-order" message="Generating order ${file:name}"/>
-            <to id="route-to-incoming-orders" uri="amq:incomingOrders"/>
+            <to id="route-to-incoming-orders" uri="amqp:queue:incomingOrders"/>
         </route>
         <!--
           This route consumes messages from the JMS queue incomingOrders on the ActiveMQ broker within the ESB.
@@ -33,7 +33,7 @@
           requirements for either of the <when/> elements will follow another route.
         -->
         <route id="jms-cbr-route" streamCache="true">
-            <from id="route-from-incoming-orders" uri="amq:incomingOrders"/>
+            <from id="route-from-incoming-orders" uri="amqp:queue:incomingOrders"/>
             <choice id="route-choose-country">
                 <when id="route-when-uk">
                     <xpath>/order/customer/country = 'UK'</xpath>
