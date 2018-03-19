@@ -25,7 +25,7 @@
       <id>fuse.repos</id>
 
       <repositories>
-        
+
         <repository>
           <id>maven.central</id>
           <name>Maven Central</name>
@@ -38,8 +38,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </repository>
- 
-        
+
+
         <repository>
           <id>redhat.ga</id>
           <name>Red Hat General Availability Repository</name>
@@ -52,8 +52,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </repository>
- 
-        
+
+
         <repository>
           <id>redhat.ea</id>
           <name>Red Hat Early Access Repository</name>
@@ -66,8 +66,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </repository>
- 
-        
+
+
         <repository>
           <id>jboss.ea</id>
           <name>JBoss Early Access Repository</name>
@@ -80,53 +80,11 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </repository>
- 
-        
-        <repository>
-          <id>jboss.brew</id>
-          <name>JBoss Brew Repository</name>
-          <url>http://download-node-02.eng.bos.redhat.com/brewroot/repos/jb-common-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </repository>
- 
-        
-        <repository>
-          <id>fis.brew</id>
-          <name>FIS Brew Repository</name>
-          <url>http://download-node-02.eng.bos.redhat.com/brewroot/repos/jb-fis-2.0-maven-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </repository>
- 
-        
-        <repository>
-          <id>eap.brew</id>
-          <name>EAP Brew Repository</name>
-          <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </repository>
- 
+
       </repositories>
 
       <pluginRepositories>
-        
+
         <pluginRepository>
           <id>maven.central</id>
           <name>Maven Central</name>
@@ -139,8 +97,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </pluginRepository>
- 
-        
+
+
         <pluginRepository>
           <id>redhat.ga</id>
           <name>Red Hat General Availability Repository</name>
@@ -153,8 +111,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </pluginRepository>
- 
-        
+
+
         <pluginRepository>
           <id>redhat.ea</id>
           <name>Red Hat Early Access Repository</name>
@@ -167,8 +125,8 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </pluginRepository>
- 
-        
+
+
         <pluginRepository>
           <id>jboss.ea</id>
           <name>JBoss Early Access Repository</name>
@@ -181,49 +139,7 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </pluginRepository>
- 
-        
-        <pluginRepository>
-          <id>jboss.brew</id>
-          <name>JBoss Brew Repository</name>
-          <url>http://download-node-02.eng.bos.redhat.com/brewroot/repos/jb-common-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </pluginRepository>
- 
-        
-        <pluginRepository>
-          <id>fis.brew</id>
-          <name>FIS Brew Repository</name>
-          <url>http://download-node-02.eng.bos.redhat.com/brewroot/repos/jb-fis-2.0-maven-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </pluginRepository>
- 
-        
-        <pluginRepository>
-          <id>eap.brew</id>
-          <name>EAP Brew Repository</name>
-          <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-        </pluginRepository>
- 
+
       </pluginRepositories>
     </profile>
   </profiles>
