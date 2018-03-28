@@ -14,4 +14,4 @@ spec:
           - name: AMQP_HOST
             value: broker-amq-amqp
           - name: SPRING_APPLICATION_JSON
-            value: '{"server":{"tomcat":{"max-threads":1}}}'
+            value: '{"server":{"undertow":{"io-threads":1, "worker-threads":2 }}}'
