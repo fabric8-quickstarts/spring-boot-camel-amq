@@ -17,3 +17,4 @@ dependency-reduced-pom.xml
 kube-cluster/kubernetes
 apps/modifiedFabric8.json
 git-clones
+.vscode/
