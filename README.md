@@ -1,10 +1,20 @@
-# Spring Boot, Camel and ActiveMQ QuickStart
+# Spring Boot, Camel and EnMasse QuickStart
 
-This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
+This quickstart demonstrates how to connect a Spring-Boot application to EnMasse (MaaS) and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
-In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes is running.
+This quickstart requires EnMasse to have been deployed and running first. Follow the directions at
 
-This quickstart requires the ActiveMQ broker has been deployed and running first. This can be done from the web console from the `Apps` page, and then install the `messaging` application.
+http://enmasse.io/documentation
+
+to install EnMasse into OpenShift or Kubernetes. There is a `deploy.sh` script that will help you install EnMasse. Once EnMasse is installed, please create an incomingOrders queue using the EnMasse console.
+
+### Configuration
+
+The quickstart must run on a Kubernetes/OpenShift project different from the one where EnMasse is deployed.
+
+Before running the quickstart, you need to configure the `src/main/fabric8/deployment.yml` file in order to 
+use the correct remote instance of AMQ EnMasse.
+The `AMQP_SERVICE_NAME` environment variable must point to the hostname of the external "messaging" route exposed by EnMasse.
 
 ### Building
 
@@ -20,7 +30,7 @@ The example can be run locally using the following Maven goal:
     mvn spring-boot:run
 
 
-### Running the example in Kubernetes
+### Running the example in Kubernetes/OpenShift
 
 It is assumed a running Kubernetes platform is already running. If not you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
 
@@ -51,16 +61,6 @@ Then find the name of the pod that runs this quickstart, and output the logs fro
     oc logs <name of pod>
 
 You can also use the [fabric8 developer console](http://fabric8.io/guide/console.html) to manage the running pods, and view logs and much more.
-
-
-#### Integration Testing
-
-The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) Kubernetes Integration Test. 
-Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
-
-	mvn test -Dtest=*KT
-
-The test is disabled by default and has to be enabled using `-Dtest`. [Arquillian Cube](https://github.com/arquillian/arquillian-cube/tree/master/openshift) provide more information on writing full fledged black box integration tests for Kubernetes. 
 
 ### More details
 

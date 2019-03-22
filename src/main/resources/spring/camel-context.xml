@@ -7,12 +7,12 @@
           A route to generate a random order every 5th second.
 
           When this route is started, it will automatically send xml messages to the JMS queue incomingOrders on the
-          ActiveMQ broker.
+          JMS broker.
 
           The <log/> elements are used to add human-friendly business logging statements. They make it easier to see what the
           route is doing.
 
-          The amq component ensures to use the broker in the kubernetes cluster.
+          The amq component ensures to use the broker in the Kubernetes cluster.
         -->
         <route id="generate-order-route" streamCache="true">
             <from id="route-timer" uri="timer:order?period=3000"/>
@@ -25,7 +25,7 @@
             <to id="route-to-incoming-orders" uri="amqp:queue:incomingOrders"/>
         </route>
         <!--
-          This route consumes messages from the JMS queue incomingOrders on the ActiveMQ broker within the ESB.
+          This route consumes messages from the JMS queue incomingOrders on the JMS broker.
 
           The <choice/> element contains the content based router. The two <when/> clauses use XPath to define the criteria
           for entering that part of the route. When the country in the XML message is set to UK or US, the message will follow

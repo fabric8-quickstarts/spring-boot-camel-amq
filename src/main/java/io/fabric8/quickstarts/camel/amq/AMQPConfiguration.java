@@ -4,21 +4,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration parameters filled in from application.properties and overridden using env variables on Openshift.
+ * Configuration parameters filled in from application.properties and overridden using env variables on OpenShift.
  */
 @Configuration
 @ConfigurationProperties(prefix = "amqp")
 public class AMQPConfiguration {
 
     /**
-     * AMQ service host
+     * AMQ service name
      */
-    private String host;
+    private String serviceName;
 
     /**
-     * AMQ service port
+     * AMQ parameters
      */
-    private Integer port;
+    private String parameters;
 
     /**
      * AMQ username
@@ -33,20 +33,20 @@ public class AMQPConfiguration {
     public AMQPConfiguration() {
     }
 
-    public String getHost() {
-        return host;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public Integer getPort() {
-        return port;
+    public String getParameters() {
+        return parameters;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
     }
 
     public String getUsername() {
