@@ -5,7 +5,7 @@
 
   <groupId>io.fabric8.quickstarts</groupId>
   <artifactId>spring-boot-camel-amq</artifactId>
-  <version>1.0.0.fuse-730033</version>
+  <version>1.0.0.fuse-730033-redhat-00001</version>
   <packaging>jar</packaging>
 
 
