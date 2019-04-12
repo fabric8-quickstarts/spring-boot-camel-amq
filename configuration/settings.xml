@@ -111,7 +111,7 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </pluginRepository>
- 
+        
       </pluginRepositories>
     </profile>
   </profiles>
