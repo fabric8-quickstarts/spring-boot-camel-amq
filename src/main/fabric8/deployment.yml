@@ -1,4 +1,5 @@
 spec:
+  replicas: 1
   template:
     spec:
       containers:
@@ -11,7 +12,11 @@ spec:
               cpu: "1.0"
               memory: 256Mi
           env:
-          - name: AMQP_HOST
-            value: broker-amq-amqp
-          - name: SPRING_APPLICATION_JSON
-            value: '{"server":{"undertow":{"io-threads":1, "worker-threads":2 }}}'
+          - name: AMQP_SERVICE_NAME
+            value: messaging-enmasse.192.168.64.1.nip.io
+          - name: AMQP_USERNAME
+            value: admin
+          - name: AMQP_PASSWORD
+            value: admin
+          - name: AMQP_PARAMETERS
+            value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000
