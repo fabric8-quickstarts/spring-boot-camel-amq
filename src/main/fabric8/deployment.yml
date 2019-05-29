@@ -12,11 +12,17 @@ spec:
               cpu: "1.0"
               memory: 256Mi
           env:
+          - name: AMQP_PROTOCOL
+            value: amqp
           - name: AMQP_SERVICE_NAME
-            value: messaging-enmasse.192.168.64.1.nip.io
-          - name: AMQP_USERNAME
-            value: admin
-          - name: AMQP_PASSWORD
-            value: admin
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-config
+                key: service.host
+          - name: AMQP_SERVICE_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-config
+                key: service.port.amqp
           - name: AMQP_PARAMETERS
             value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000

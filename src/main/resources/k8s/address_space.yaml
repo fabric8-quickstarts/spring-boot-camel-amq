@@ -1,0 +1,20 @@
+
+apiVersion: enmasse.io/v1beta1
+kind: AddressSpace
+metadata:
+  name: spring-boot-camel-amq
+spec:
+  type: brokered
+  plan: brokered-single-broker
+  endpoints:
+  - name: messaging
+    service: messaging
+    expose:
+      type: route
+      routeServicePort: amqps
+      routeTlsTermination: passthrough
+    exports:
+    - kind: ConfigMap
+      name: spring-boot-camel-amq-config
+    cert:
+      provider: openshift

@@ -17,6 +17,7 @@
 
     <!-- dependency versions -->
     <fabric8.version>3.0.11.fuse-730061</fabric8.version>
+    <io.netty.version>4.1.28.Final</io.netty.version>
 
     <!-- maven plugin versions -->
     <fabric8.maven.plugin.version>3.5.34</fabric8.maven.plugin.version>
@@ -80,6 +81,18 @@
       <groupId>org.messaginghub</groupId>
       <artifactId>pooled-jms</artifactId>
       <version>${pooled-jms.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-buffer</artifactId>
+      <version>${io.netty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.netty</groupId>
+      <version>${io.netty.version}</version>
+      <artifactId>netty-handler</artifactId>
     </dependency>
   </dependencies>
 

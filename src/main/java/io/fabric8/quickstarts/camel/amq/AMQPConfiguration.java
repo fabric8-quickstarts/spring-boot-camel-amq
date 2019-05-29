@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Configuration;
 public class AMQPConfiguration {
 
     /**
+     * AMQ protocol
+     */
+    private String protocol;
+
+    /**
      * AMQ service name
      */
     private String serviceName;
@@ -24,6 +29,11 @@ public class AMQPConfiguration {
      * AMQ username
      */
     private String username;
+
+    /**
+     * AMQ service port
+     */
+    private String servicePort;
 
     /**
      * AMQ password
@@ -57,6 +67,14 @@ public class AMQPConfiguration {
         this.username = username;
     }
 
+    public String getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(String servicePort) {
+        this.servicePort = servicePort;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -65,4 +83,11 @@ public class AMQPConfiguration {
         this.password = password;
     }
 
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 }

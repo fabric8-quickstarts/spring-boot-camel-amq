@@ -2,33 +2,52 @@
 
 This quickstart demonstrates how to connect a Spring-Boot application to EnMasse (MaaS) and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
-This quickstart requires EnMasse to have been deployed and running first. Follow the directions at
-
-http://enmasse.io/documentation
-
-to install EnMasse into OpenShift or Kubernetes. There is a `deploy.sh` script that will help you install EnMasse. Once EnMasse is installed, please create an incomingOrders queue using the EnMasse console.
+This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow [documentation](https://enmasse.io/documentation/master/openshift/#installing-messaging).
 
 ### Configuration
 
 The quickstart must run on a Kubernetes/OpenShift project different from the one where EnMasse is deployed.
 
-Before running the quickstart, you need to configure the `src/main/fabric8/deployment.yml` file in order to 
-use the correct remote instance of AMQ EnMasse.
-The `AMQP_SERVICE_NAME` environment variable must point to the hostname of the external "messaging" route exposed by EnMasse.
+Log in as a user with cluster-admin privileges:
+
+ ```
+ oc login -u system:admin
+ ```
+
+Before running the quickstart, you need to configure EnMasse (create user and queue). Run the following commands to create new project and apply configuration files:
+
+ ```
+ oc new-project MY_PROJECT_NAME
+ oc apply -f src/main/resources/k8s
+ ```
 
 ### Building
 
 The example can be built with
 
-    mvn clean install
-
+ ```
+ mvn clean install
+ ```
 
 ### Running the example locally
 
-The example can be run locally using the following Maven goal:
+Before running the quickstart, you need to configure the `src/main/fabric8/deployment.yml` file in order to
+use the correct remote instance of AMQ EnMasse.
 
-    mvn spring-boot:run
 
+Get remote url of EnMasse instance by running following command:
+
+ ```
+ oc get addressspace spring-boot-camel-amq -o jsonpath={.status.endpointStatuses[?(@.name==\'messaging\')].externalHost}
+ ```
+
+Fill this value into `src/main/resources/application.properties` instead of `FILL_ME`.
+
+The example can be then run locally using the following Maven goal:
+
+ ```
+ mvn spring-boot:run
+ ```
 
 ### Running the example in Kubernetes/OpenShift
 
