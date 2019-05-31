@@ -36,8 +36,9 @@ public class Application {
 
     @Bean(name = "amqp-component")
     AMQPComponent amqpComponent(AMQPConfiguration config) {
-        JmsConnectionFactory qpid = new JmsConnectionFactory(config.getUsername(), config.getPassword(), "amqp://"+ config.getHost() + ":" + config.getPort());
-        qpid.setTopicPrefix("topic://");
+        String remoteURI = String.format("amqps://%s:%s?%s", config.getServiceName(), config.getServicePort(), config.getParameters());
+
+        JmsConnectionFactory qpid = new JmsConnectionFactory(config.getUsername(), config.getPassword(), remoteURI);
 
         PooledConnectionFactory factory = new PooledConnectionFactory();
         factory.setConnectionFactory(qpid);

@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: rbac
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    verbs: [ "create" ]
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    resourceNames: [ "spring-boot-camel-amq-config" ]
+    verbs: [ "get", "update", "patch" ]
