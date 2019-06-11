@@ -1,4 +1,4 @@
-# Spring Boot, Camel and ActiveMQ QuickStart
+= Spring Boot, Camel and ActiveMQ QuickStart
 
 This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
@@ -6,64 +6,95 @@ In this example we will use two containers, one container to run as a ActiveMQ b
 
 This quickstart requires the ActiveMQ broker has been deployed and running first. This can be done from the web console from the `Apps` page, and then install the `messaging` application.
 
-### Building
+The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
 
-The example can be built with
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
 
-    mvn clean install
+== Deployment options
 
+You can run this quickstart in the following modes:
 
-### Running the example locally
+* Kubernetese / Single-node OpenShift cluster
+* Standalone on your machine
 
-The example can be run locally using the following Maven goal:
+The most effective way to run this quickstart is to deploy and run the project on OpenShift.
 
-    mvn spring-boot:run
+For more details about running this quickstart on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
 
+== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
 
-### Running the example in Kubernetes
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
-It is assumed a running Kubernetes platform is already running. If not you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
 
-Assuming your current shell is connected to Kubernetes or OpenShift so that you can type a command like
+To deploy this quickstart to a running single-node OpenShift cluster:
 
-```
-kubectl get pods
-```
+. Download the project and extract the archive on your local filesystem.
 
-or for OpenShift
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
 
-```
-oc get pods
-```
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
 
-Then the following command will package your app and run it on Kubernetes:
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-amq
+----
 
-```
-mvn fabric8:run
-```
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift
+----
 
-To list all the running pods:
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `spring-boot-camel-amq` has started up.
 
-    oc get pods
+. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-Then find the name of the pod that runs this quickstart, and output the logs from the running pods with:
+. Switch to tab `Logs` and then see the messages sent by Camel.
 
-    oc logs <name of pod>
+== Integration Testing
 
-You can also use the [fabric8 developer console](http://fabric8.io/guide/console.html) to manage the running pods, and view logs and much more.
+The example includes a https://github.com/fabric8io/fabric8/tree/master/components/fabric8-arquillian[fabric8 arquillian] Kubernetes Integration Test.
+Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
 
+[source,bash,options="nowrap",subs="attributes+"]
+----
+mvn test -Dtest=*KT
+----
 
-### Integration Testing
+The test is disabled by default and has to be enabled using `-Dtest`. https://fabric8.io/guide/testing.html[Integration Testing] and https://fabric8.io/guide/arquillian.html[Fabric8 Arquillian Extension] provide more information on writing full fledged black box integration tests for Kubernetes.
 
-The example includes a [fabric8 arquillian](https://github.com/fabric8io/fabric8/tree/v2.2.170.redhat/components/fabric8-arquillian) OpenShift Integration Test. 
-Once the container image has been built and deployed in OpenShift, the integration test can be run with:
+== Running the quickstart standalone on your machine
 
-    mvn test -Dtest=*KT
+To run this quickstart as a standalone project on your local machine:
 
-The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Integration Testing](https://fabric8.io/guide/testing.html) and [Fabric8 Arquillian Extension](https://fabric8.io/guide/arquillian.html) provide more information on writing full fledged black box integration tests for OpenShift. 
+. Download the project and extract the archive on your local filesystem.
+. Build the project:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd PROJECT_DIR
+$ mvn clean package
+----
+. Run the service:
 
-
-### More details
-
-You can find more details about running this [quickstart](http://fabric8.io/guide/quickstarts/running.html) on the website. This also includes instructions how to change the Docker image user and registry.
-
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn spring-boot:run
+----
+. See the messages sent by Camel.
