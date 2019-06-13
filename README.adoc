@@ -1,0 +1,172 @@
+== Spring-Boot, Camel and EnMasse QuickStart
+
+This quickstart demonstrates how to connect a Spring-Boot application to EnMasse (MaaS) and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
+
+In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
+
+This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift/#installing-messaging[documentation].
+
+The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
+
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
+
+== Deployment options
+
+You can run this quickstart in the following modes:
+
+* Kubernetese / Single-node OpenShift cluster
+* Standalone on your machine
+
+The most effective way to run this quickstart is to deploy and run the project on OpenShift.
+
+For more details about running this quickstart on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
+
+== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
+
+IMPORTANT: You need to run this example on Container Development Kit 3.3 or OpenShift 3.7.
+Both of these products have suitable Fuse images pre-installed.
+If you run it in an environment where those images are not preinstalled follow the steps described in <<single-node-without-preinstalled-images>>.
+
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
+
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
+
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
+
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-amq
+----
+
+. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift
+----
+
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `spring-boot-camel-amq` has started up.
+
+. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
+
+. Switch to tab `Logs` and then see the messages sent by Camel.
+
+
+[#single-node-without-preinstalled-images]
+=== Running the Quickstart on a single-node Kubernetes/OpenShift cluster without preinstalled images
+
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
+
+
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
+
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
+
+. Import base images in your newly created project (MY_PROJECT_NAME):
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc import-image fis-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:2.0 --confirm
+----
+
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-amq
+----
+
+. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fis-java-openshift:2.0
+----
+
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `spring-boot-camel-amq` has started up.
+
+. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
+
+. Switch to tab `Logs` and then see the messages sent by Camel.
+
+== Running the quickstart standalone on your machine
+
+To run this quickstart as a standalone project on your local machine:
+
+. You need to have a running instance of EnMasse with messaging user `admin:test` and queue `incomingOrders`.
++
+You can use EnMasse instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
+use the correct remote instance of EnMasse.
++
+Get remote url of EnMasse instance by running the following command:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace spring-boot-camel-amq -o jsonpath={.status.endpointStatuses[?(@.name==\'messaging\')].externalHost}
+----
++
+Fill this value into `src/main/resources/application.properties` instead of `FILL_ME`.
+
+. Download the project and extract the archive on your local filesystem.
+. Build the project:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd PROJECT_DIR
+$ mvn clean package
+----
+. Run the service:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn spring-boot:run
+----
+. See the messages sent by Camel.

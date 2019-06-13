@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class AMQPConfiguration {
 
     /**
-     * AMQ service host
+     * AMQ service name
      */
-    private String host;
+    private String serviceName;
 
     /**
      * AMQ service port
@@ -30,15 +30,25 @@ public class AMQPConfiguration {
      */
     private String password;
 
+    /**
+     * AMQ service port
+     */
+    private String servicePort;
+
+    /**
+     * AMQ parameters
+     */
+    private String parameters;
+
     public AMQPConfiguration() {
     }
 
-    public String getHost() {
-        return host;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public Integer getPort() {
@@ -65,4 +75,19 @@ public class AMQPConfiguration {
         this.password = password;
     }
 
+    public String getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(String servicePort) {
+        this.servicePort = servicePort;
+    }
+
+    public String getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
+    }
 }
