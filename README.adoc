@@ -135,6 +135,15 @@ Wait until you can see that the pod for the `spring-boot-camel-amq` has started 
 
 . Switch to tab `Logs` and then see the messages sent by Camel.
 
+== Integration Testing
+
+The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) Kubernetes Integration Test. 
+Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
+
+	mvn test -Dtest=*KT
+
+The test is disabled by default and has to be enabled using `-Dtest`. [Arquillian Cube](https://github.com/arquillian/arquillian-cube/tree/master/openshift) provide more information on writing full fledged black box integration tests for Kubernetes. 
+
 == Running the quickstart standalone on your machine
 
 To run this quickstart as a standalone project on your local machine:
