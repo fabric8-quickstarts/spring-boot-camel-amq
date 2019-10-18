@@ -23,7 +23,7 @@
 
     <groupId>io.fabric8.quickstarts</groupId>
     <artifactId>spring-boot-camel-amq</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.fuse-760002</version>
 
     <name>Fabric8 :: Quickstarts :: Spring Boot :: Camel and EnMasse</name>
     <description>Spring Boot example running a Camel route connecting to EnMasse</description>
@@ -33,7 +33,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the Fuse version you want to use here -->
-        <fuse.bom.version>7.3.0.fuse-730058-redhat-00001</fuse.bom.version>
+        <fuse.bom.version>7.6.0.fuse-760002</fuse.bom.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
