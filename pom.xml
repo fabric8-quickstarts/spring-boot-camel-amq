@@ -23,7 +23,7 @@
 
     <groupId>io.fabric8.quickstarts</groupId>
     <artifactId>spring-boot-camel-amq</artifactId>
-    <version>7.5.0.fuse-sb2-750016</version>
+    <version>7.5.0.fuse-sb2-750016-redhat-00005</version>
 
     <name>Fabric8 :: Quickstarts :: Spring Boot :: Camel and EnMasse</name>
     <description>Spring Boot example running a Camel route connecting to EnMasse</description>
