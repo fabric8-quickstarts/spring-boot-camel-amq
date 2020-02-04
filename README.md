@@ -1,10 +1,6 @@
 # Spring Boot, Camel and ActiveMQ QuickStart
 
-This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
-
-In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes is running.
-
-This quickstart requires the ActiveMQ broker has been deployed and running first. This can be done from the web console from the `Apps` page, and then install the `messaging` application.
+This quickstart shows how to connect a Spring-Boot application to an A-MQ xPaaS message broker and use JMS messaging between two Camel routes using OpenShift.
 
 ### Building
 
@@ -12,35 +8,16 @@ The example can be built with
 
     mvn clean install
 
+### Running the example in OpenShift
 
-### Running the example locally
+It is assumed that:
+- OpenShift platform is already running, if not you can find details how to [Install OpenShift at your site](https://docs.openshift.com/container-platform/3.3/install_config/index.html).
+- Your system is configured for Fabric8 Maven Workflow, if not you can find a [Get Started Guide](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/single/red-hat-jboss-fuse-integration-services-20-for-openshift/)
+- The Red Hat JBoss A-MQ xPaaS product should already be installed and running on your OpenShift installation, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the `amq63-basic` template.
 
-The example can be run locally using the following Maven goal:
+Then the following command will package your app and run it on OpenShift:
 
-    mvn spring-boot:run
-
-
-### Running the example in Kubernetes
-
-It is assumed a running Kubernetes platform is already running. If not you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
-
-Assuming your current shell is connected to Kubernetes or OpenShift so that you can type a command like
-
-```
-kubectl get pods
-```
-
-or for OpenShift
-
-```
-oc get pods
-```
-
-Then the following command will package your app and run it on Kubernetes:
-
-```
-mvn fabric8:run
-```
+    mvn fabric8:deploy
 
 To list all the running pods:
 
@@ -50,19 +27,28 @@ Then find the name of the pod that runs this quickstart, and output the logs fro
 
     oc logs <name of pod>
 
-You can also use the [fabric8 developer console](http://fabric8.io/guide/console.html) to manage the running pods, and view logs and much more.
+You can also use the openshift [web console](https://docs.openshift.com/enterprise/3.1/getting_started/developers/developers_console.html#tutorial-video) to manage the
+running pods, and view logs and much more.
 
+### Running via an S2I Application Template
 
-#### Integration Testing
+Application templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
 
-The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) Kubernetes Integration Test. 
-Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
+First, import the Fuse image streams:
 
-	mvn test -Dtest=*KT
+    oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json
 
-The test is disabled by default and has to be enabled using `-Dtest`. [Arquillian Cube](https://github.com/arquillian/arquillian-cube/tree/master/openshift) provide more information on writing full fledged black box integration tests for Kubernetes. 
+Then create the quickstart template:
 
-### More details
+    oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-amq-template.json
 
-You can find more details about running this [quickstart](http://fabric8.io/guide/quickstarts/running.html) on the website. This also includes instructions how to change the Docker image user and registry.
+Now when you use "Add to Project" button in the OpenShift console, you should see a template for this quickstart. 
 
+### Integration Testing
+
+The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) OpenShift Integration Test. 
+Once the container image has been built and deployed in OpenShift, the integration test can be run with:
+
+    mvn test -Dtest=*KT
+
+The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Arquillian Cube](http://arquillian.org/arquillian-cube/) provide more information on writing full fledged black box integration tests for OpenShift. 
