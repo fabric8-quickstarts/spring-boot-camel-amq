@@ -42,7 +42,13 @@
                 "ports": [
                     {
                         "port": 5672,
-                        "targetPort": 5672
+                        "targetPort": 5672,
+                        "name": "amqp"
+                    },
+                    {
+                        "port": 5671,
+                        "targetPort": 5671,
+                        "name": "amqps"
                     }
                 ],
                 "selector": {
@@ -130,6 +136,11 @@
                                     {
                                         "name": "amqp",
                                         "containerPort": 5672,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "name": "amqps",
+                                        "containerPort": 5671,
                                         "protocol": "TCP"
                                     }
                                 ],
