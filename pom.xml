@@ -42,14 +42,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Bump jackson to versions newer than Spring Boot curated ones in order to prevent some CVEs -->
-            <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>2.9.10.20191020</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.jboss.redhat-fuse</groupId>
                 <artifactId>fuse-springboot-bom</artifactId>
