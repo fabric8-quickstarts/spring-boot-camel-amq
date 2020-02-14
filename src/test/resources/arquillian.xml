@@ -4,6 +4,9 @@
                http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
   <extension qualifier="kubernetes">
-    <property name="env.dependencies">file:src/test/resources/amq.json</property>
+    <property name="env.dependencies">
+      file:src/test/resources/amq.json
+      file:src/test/resources/cm.json
+    </property>
   </extension>
 </arquillian>
