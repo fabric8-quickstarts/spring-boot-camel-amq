@@ -40,6 +40,8 @@ public class AMQPConfiguration {
      */
     private String parameters;
 
+    private String protocol;
+
     public AMQPConfiguration() {
     }
 
@@ -89,5 +91,13 @@ public class AMQPConfiguration {
 
     public void setParameters(String parameters) {
         this.parameters = parameters;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 }
