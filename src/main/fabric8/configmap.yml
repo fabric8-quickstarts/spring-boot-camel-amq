@@ -1,0 +1,4 @@
+metadata:
+  name: spring-boot-camel-amq-protocol
+data:
+  service.protocol: amqps

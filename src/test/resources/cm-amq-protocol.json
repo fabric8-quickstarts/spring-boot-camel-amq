@@ -1,0 +1,10 @@
+{
+  "kind": "ConfigMap",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "spring-boot-camel-amq-protocol"
+  },
+  "data": {
+    "service.protocol": "amqp"
+  }
+}
