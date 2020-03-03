@@ -18,6 +18,8 @@ package io.fabric8.quickstarts.camel.amq;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.apache.camel.component.amqp.AMQPComponent;
 import org.apache.qpid.jms.JmsConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -30,13 +32,21 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({"classpath:spring/camel-context.xml"})
 public class Application {
 
+    Logger log = LoggerFactory.getLogger(Application.class);
+
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     @Bean(name = "amqp-component")
     AMQPComponent amqpComponent(AMQPConfiguration config) {
-        String remoteURI = String.format(config.getProtocol()+"://%s:%s?%s", config.getServiceName(), config.getServicePort(), config.getParameters());
+
+        String protocol = config.getProtocol();
+
+        String port = "amqps".equals(protocol) ? config.getServicePort_amqps(): config.getServicePort_amqp();
+
+        String remoteURI = String.format(protocol+"://%s:%s?%s", config.getServiceName(), port, config.getParameters());
 
         JmsConnectionFactory qpid = new JmsConnectionFactory(config.getUsername(), config.getPassword(), remoteURI);
 

@@ -147,11 +147,11 @@
                                 "env": [
                                     {
                                         "name": "AMQ_USER",
-                                        "value": "theuser"
+                                        "value": "admin"
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
-                                        "value": "Thepassword1!"
+                                        "value": "test"
                                     },
                                     {
                                         "name": "AMQ_TRANSPORTS",
