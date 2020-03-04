@@ -6,9 +6,8 @@
   },
   "data": {
     "service.host": "broker-amq-amqp",
-    "service.port": "5672",
-    "service.username": "theuser",
-    "service.password": "Thepassword1!",
-    "service.protocol": "amqp"
+    "service.port.amqp": "5672",
+    "service.port.amqps": "5671"
+
   }
 }

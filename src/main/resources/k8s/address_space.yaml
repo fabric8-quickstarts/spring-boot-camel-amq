@@ -1,4 +1,3 @@
-
 apiVersion: enmasse.io/v1beta1
 kind: AddressSpace
 metadata:

@@ -1,5 +1,6 @@
 package io.fabric8.quickstarts.camel.amq;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -7,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration parameters filled in from application.properties and overridden using env variables on Openshift.
  */
 @Configuration
-@ConfigurationProperties(prefix = "amqp")
+@ConfigurationProperties(prefix = "amq_camel")
 public class AMQPConfiguration {
 
     /**
@@ -31,15 +32,25 @@ public class AMQPConfiguration {
     private String password;
 
     /**
-     * AMQ service port
+     * AMQ service port AMQP
      */
-    private String servicePort;
+    @Value("${AMQ_CAMEL_SERVICE_PORT_AMQP}")
+    private String servicePortAMQP;
+
+    /**
+     * AMQ service port AMQPS
+     */
+    @Value("${AMQ_CAMEL_SERVICE_PORT_AMQPS}")
+    private String servicePortAMQPS;
 
     /**
      * AMQ parameters
      */
     private String parameters;
 
+    /**
+     * AMQ protocol (amqp or amqps)
+     */
     private String protocol;
 
     public AMQPConfiguration() {
@@ -49,8 +60,8 @@ public class AMQPConfiguration {
         return serviceName;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceName(String service_name) {
+        this.serviceName = service_name;
     }
 
     public Integer getPort() {
@@ -77,12 +88,21 @@ public class AMQPConfiguration {
         this.password = password;
     }
 
-    public String getServicePort() {
-        return servicePort;
+
+    public String getServicePort_amqp() {
+        return servicePortAMQP;
     }
 
-    public void setServicePort(String servicePort) {
-        this.servicePort = servicePort;
+    public void setServicePortAMQP(String servicePortAMQP) {
+        this.servicePortAMQPS = servicePortAMQP;
+    }
+
+    public String getServicePort_amqps() {
+        return servicePortAMQPS;
+    }
+
+    public void setServicePortAMQPS(String servicePortAMQPS) {
+        this.servicePortAMQP = servicePortAMQPS;
     }
 
     public String getParameters() {
@@ -99,5 +119,20 @@ public class AMQPConfiguration {
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AMQPConfiguration{" +
+                "serviceName='" + serviceName + '\'' +
+                ", port=" + port +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", servicePortAmqp='" + servicePortAMQP + '\'' +
+                ", servicePortAmqps='" + servicePortAMQPS + '\'' +
+                ", parameters='" + parameters + '\'' +
+                ", protocol='" + protocol + '\'' +
+                '}';
     }
 }
