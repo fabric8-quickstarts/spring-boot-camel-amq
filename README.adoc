@@ -14,7 +14,7 @@ IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on
 
 You can run this quickstart in the following modes:
 
-* Kubernetese / Single-node OpenShift cluster
+* Kubernetes / Single-node OpenShift cluster
 * Standalone on your machine
 
 The most effective way to run this quickstart is to deploy and run the project on OpenShift.
