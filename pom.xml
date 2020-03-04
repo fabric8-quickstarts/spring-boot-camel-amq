@@ -173,6 +173,12 @@
 
     <profiles>
         <profile>
+        <id>itest</id>
+            <properties>
+                <fabric8.resourceDir>src/test/fabric8</fabric8.resourceDir>
+            </properties>
+        </profile>
+        <profile>
             <id>openshift</id>
             <build>
                 <plugins>
