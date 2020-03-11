@@ -28,7 +28,7 @@ spec:
                 key: service.port.amqp
           - name: AMQ_CAMEL_PARAMETERS
             value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000
-          - name: AMQ_PROTOCOL
+          - name: AMQ_CAMEL_PROTOCOL
             valueFrom:
               configMapKeyRef:
                 name: spring-boot-camel-amq-protocol

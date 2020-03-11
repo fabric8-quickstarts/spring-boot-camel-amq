@@ -33,7 +33,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the Fuse version you want to use here -->
-        <fuse.bom.version>7.6.0.fuse-760024-redhat-00001</fuse.bom.version>
+        <fuse.bom.version>7.6.0.fuse-sb2-760027-redhat-00001</fuse.bom.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -122,6 +122,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>2.4.1</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -172,12 +179,6 @@
     </build>
 
     <profiles>
-        <profile>
-        <id>itest</id>
-            <properties>
-                <fabric8.resourceDir>src/test/fabric8</fabric8.resourceDir>
-            </properties>
-        </profile>
         <profile>
             <id>openshift</id>
             <build>

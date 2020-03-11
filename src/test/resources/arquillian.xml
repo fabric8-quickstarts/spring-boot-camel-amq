@@ -4,10 +4,9 @@
                http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
   <extension qualifier="kubernetes">
-    <property name="cube.fmp.build">true</property>
     <property name="env.dependencies">
-      file:src/test/resources/cm-amq-config.json
-      file:src/test/resources/cm-amq-protocol.json
+      file:src/test/resources/cm-amq-config.json,
+      file:src/test/resources/cm-amq-protocol.json,
       file:src/test/resources/amq.json
     </property>
   </extension>
