@@ -102,7 +102,7 @@ $ oc new-project MY_PROJECT_NAME
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fis-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:2.0 --confirm
+$ oc import-image fis-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fis-java-openshift:2.0 --confirm
 ----
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
