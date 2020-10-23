@@ -125,7 +125,7 @@ $ oc apply -f src/main/resources/k8s
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fis-java-openshift:2.0
+$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.8
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
