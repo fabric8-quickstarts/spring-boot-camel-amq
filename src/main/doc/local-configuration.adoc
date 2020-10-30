@@ -1,0 +1,15 @@
+
+. You need to have a running instance of EnMasse with messaging user `admin:test` and queue `incomingOrders`.
++
+You can use EnMasse instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
+use the correct remote instance of EnMasse.
++
+Get remote url of EnMasse instance by running the following command:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace spring-boot-camel-amq -o jsonpath={.status.endpointStatuses[?(@.name==\'messaging\')].externalHost}
+----
++
+Fill this value into `src/main/resources/application.properties` instead of `FILL_ME`.

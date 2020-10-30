@@ -1,0 +1,17 @@
+
+. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -D=jkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.9
+----
+
