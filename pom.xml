@@ -206,6 +206,34 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <resources>
+                                <labels>
+                                <pod>
+                                    <property>
+                                    <name>com.company</name>
+                                    <value>Red_Hat</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.prod_name</name>
+                                    <value>Red_Hat_Integration</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.prod_ver</name>
+                                    <value>7.9</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.comp</name>
+                                    <value>spring-boot-camel-amq</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.comp_ver</name>
+                                    <value>${fuse.bom.version}</value>
+                                    </property>
+                                </pod>
+                                </labels>
+                            </resources>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
