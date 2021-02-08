@@ -16,14 +16,13 @@
      permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.fabric8.quickstarts</groupId>
     <artifactId>spring-boot-camel-amq</artifactId>
-    <version>7.9.0.fuse-sb2-790017</version>
+    <version>7.9.0.fuse-sb2-790017-redhat-00001</version>
 
     <name>Fabric8 :: Quickstarts :: Spring Boot :: Camel and EnMasse</name>
     <description>Spring Boot example running a Camel route connecting to EnMasse</description>
@@ -33,7 +32,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the Fuse version you want to use here -->
-        <fuse.bom.version>7.9.0.fuse-sb2-790023</fuse.bom.version>
+        <fuse.bom.version>7.9.0.fuse-sb2-790023-redhat-00001</fuse.bom.version>
         <docker.image.version>1.7</docker.image.version>
 
         <!-- maven plugin versions -->
@@ -178,6 +177,8 @@
             </plugin>
 
         </plugins>
+
+        <pluginManagement />
     </build>
 
     <profiles>
@@ -251,49 +252,16 @@
     </profiles>
 
     <repositories>
-        <repository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/ga</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>redhat-ea-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+        
+        
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/ga</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ea-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
+        
+        
     </pluginRepositories>
 
 </project>
+<!--
+Modified by POM Manipulation Extension for Maven 4.1 ( SHA: 2574c551 )
+-->
