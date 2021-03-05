@@ -5,4 +5,4 @@ metadata:
 spec:
   address: incomingOrders
   type: queue
-  plan: brokered-queue
+  plan: standard-small-queue
