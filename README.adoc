@@ -4,7 +4,9 @@ This quickstart demonstrates how to connect a Spring-Boot application to EnMasse
 
 In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift/#installing-messaging[documentation].
+This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift.html[documentation].
+
+Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
 The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
 
@@ -120,6 +122,12 @@ $ cd my_openshift/spring-boot-camel-amq
 $ oc login -u system:admin
 $ oc apply -f src/main/resources/k8s
 ----
+. Wait until address space is ready:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
+----
 
 . Build and deploy the project to the OpenShift cluster:
 +
@@ -133,13 +141,25 @@ Wait until you can see that the pod for the `spring-boot-camel-amq` has started 
 
 . On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-. Switch to tab `Logs` and then see the messages sent by Camel.
+. Switch to tab `Logs` and then see the messages sent by Camel:
+----
+...
+2021-03-05 10:12:54,502 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order166.xml
+2021-03-05 10:12:54,526 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order166.xml to the UK
+2021-03-05 10:12:54,527 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order166.xml
+2021-03-05 10:12:59,527 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order167.xml
+2021-03-05 10:12:59,556 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order167.xml to the UK
+2021-03-05 10:12:59,557 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order167.xml
+2021-03-05 10:13:04,558 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order168.xml
+2021-03-05 10:13:04,568 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order168.xml to the US
+...
+----
 
 == Running the quickstart standalone on your machine
 
 To run this quickstart as a standalone project on your local machine:
 
-. You need to have a running instance of EnMasse with messaging user `admin:test` and queue `incomingOrders`.
+. You need to have a running instance of EnMasse with messaging user `user1:test` and queue `incomingOrders`.
 +
 You can use EnMasse instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
 use the correct remote instance of EnMasse.

@@ -147,7 +147,7 @@
                                 "env": [
                                     {
                                         "name": "AMQ_USER",
-                                        "value": "admin"
+                                        "value": "user1"
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",
