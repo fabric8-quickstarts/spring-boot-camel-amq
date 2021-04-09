@@ -107,7 +107,7 @@ Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.9/html-singl
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
+$ oc import-image fuse-java-openshift:1.9 --from=registry.redhat.io/fuse7/fuse-java-openshift:1.9 --confirm
 ----
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
@@ -136,7 +136,7 @@ $ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
+$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.9
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
