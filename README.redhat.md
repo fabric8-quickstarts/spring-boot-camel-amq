@@ -46,9 +46,9 @@ Now when you use "Add to Project" button in the OpenShift console, you should se
 
 ### Integration Testing
 
-The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) OpenShift Integration Test. 
+The example includes a OpenShift Integration Test. 
 Once the container image has been built and deployed in OpenShift, the integration test can be run with:
 
     mvn test -Dtest=*KT
 
-The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Arquillian Cube](http://arquillian.org/arquillian-cube/) provide more information on writing full fledged black box integration tests for OpenShift. 
+The test is disabled by default and has to be enabled using `-Dtest`. 
