@@ -101,22 +101,6 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.arquillian.cube</groupId>
-            <artifactId>arquillian-cube-openshift</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient-osgi</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>io.fabric8</groupId>
@@ -127,6 +111,13 @@
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>openshift-client</artifactId>
+            <version>4.6.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -156,8 +147,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <rerunFailingTestsCount>15</rerunFailingTestsCount>
-                    <argLine>-DenableImageStreamDetection=true</argLine>
+                    <rerunFailingTestsCount>3</rerunFailingTestsCount>
                     <excludes>
                         <exclude>**/*KT.java</exclude>
                     </excludes>
