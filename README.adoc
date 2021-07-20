@@ -4,7 +4,7 @@ This quickstart demonstrates how to connect a Spring-Boot application to EnMasse
 
 In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift.html[documentation].
+This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
 
 Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
