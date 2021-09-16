@@ -180,7 +180,7 @@
         <profile>
             <id>openshift</id>
             <properties>
-                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift:${docker.image.version}</jkube.generator.from>
+                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-rhel8:${docker.image.version}</jkube.generator.from>
             </properties>
             <build>
                 <plugins>
