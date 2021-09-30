@@ -101,7 +101,7 @@ $ oc new-project MY_PROJECT_NAME
 ----
 
 . Configure Red Hat Container Registry authentication (if it is not configured).
-Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.9/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.10/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
 
 . Import base images in your newly created project (MY_PROJECT_NAME):
 +
