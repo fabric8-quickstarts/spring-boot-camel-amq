@@ -10,7 +10,7 @@ Quickstart uses the _standard address space_ and  requires standard authenticati
 
 The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
 
-IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster. Quickstart requires Java 8 or Java 11 (`fuse-java-openshift-jdk11-rhel8` image is used to build in Java 11).
 
 == Deployment options
 
