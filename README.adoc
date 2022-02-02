@@ -1,10 +1,10 @@
-== Spring-Boot, Camel and EnMasse QuickStart
+== Spring-Boot, Camel and AMQ QuickStart
 
-This quickstart demonstrates how to connect a Spring-Boot application to EnMasse (MaaS) and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
+This quickstart demonstrates how to connect a Spring-Boot application AMQ Broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
-In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
+In this example we will use two containers, one container to run as an AMQ Broker instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
+This quickstart requires AMQ Broker to have been deployed and running first. To install AMQ Broker into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
 
 Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
@@ -54,7 +54,7 @@ $ oc new-project MY_PROJECT_NAME
 $ cd my_openshift/spring-boot-camel-amq
 ----
 
-. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -117,7 +117,7 @@ $ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jbos
 $ cd my_openshift/spring-boot-camel-amq
 ----
 
-. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -162,12 +162,12 @@ Wait until you can see that the pod for the `spring-boot-camel-amq` has started 
 
 To run this quickstart as a standalone project on your local machine:
 
-. You need to have a running instance of EnMasse with messaging user `user1:test` and queue `incomingOrders`.
+. You need to have a running instance of AMQ Broker with messaging user `user1:test` and queue `incomingOrders`.
 +
-You can use EnMasse instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
-use the correct remote instance of EnMasse.
+You can use AMQ Broker instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
+use the correct remote instance of AMQ Broker.
 +
-Get remote url of EnMasse instance by running the following command:
+Get remote url of AMQ Broker instance by running the following command:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
