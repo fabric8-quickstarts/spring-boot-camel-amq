@@ -4,7 +4,7 @@ This quickstart demonstrates how to connect a Spring-Boot application AMQ Broker
 
 In this example we will use two containers, one container to run as an AMQ Broker instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires AMQ Broker to have been deployed and running first. To install AMQ Broker into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
+This quickstart requires AMQ Broker to have been deployed and running first. To install AMQ Broker into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/2020.q4/html/deploying_amq_broker_on_openshift/assembly-br-planning-a-deployment_broker-ocp[documentation].
 
 Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
