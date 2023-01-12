@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration parameters filled in from application.properties and overridden using env variables on Openshift.
  */
 @Configuration
-@ConfigurationProperties(prefix = "amq_camel")
+@ConfigurationProperties(prefix = "amq-camel")
 public class AMQPConfiguration {
 
     /**
@@ -60,8 +60,8 @@ public class AMQPConfiguration {
         return serviceName;
     }
 
-    public void setServiceName(String service_name) {
-        this.serviceName = service_name;
+    public void setServiceName(String servicename) {
+        this.serviceName = servicename;
     }
 
     public Integer getPort() {

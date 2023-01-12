@@ -1,14 +1,16 @@
-== Spring-Boot, Camel and EnMasse QuickStart
+== Spring-Boot, Camel and AMQ QuickStart
 
-This quickstart demonstrates how to connect a Spring-Boot application to EnMasse (MaaS) and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
+This quickstart demonstrates how to connect a Spring-Boot application AMQ Broker and use JMS messaging between two Camel routes using Kubernetes or OpenShift.
 
-In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
+In this example we will use two containers, one container to run as an AMQ Broker instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift#installing-messaging[documentation].
+This quickstart requires AMQ Broker to have been deployed and running first. To install AMQ Broker into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/2020.q4/html/deploying_amq_broker_on_openshift/assembly-br-planning-a-deployment_broker-ocp[documentation].
+
+Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
 The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
 
-IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster. Quickstart requires Java 8 or Java 11 (`fuse-java-openshift-jdk11-rhel8` image is used to build in Java 11).
 
 == Deployment options
 
@@ -52,7 +54,7 @@ $ oc new-project MY_PROJECT_NAME
 $ cd my_openshift/spring-boot-camel-amq
 ----
 
-. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -65,7 +67,7 @@ $ oc apply -f src/main/resources/k8s
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift
+$ mvn clean -DskipTests oc:deploy -Popenshift
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
@@ -98,11 +100,14 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
+. Configure Red Hat Container Registry authentication (if it is not configured).
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.10/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+
 . Import base images in your newly created project (MY_PROJECT_NAME):
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:1.8 --from=registry.access.redhat.com/fuse7/fuse-java-openshift:1.8 --confirm
+$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
 ----
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
@@ -112,7 +117,7 @@ $ oc import-image fuse-java-openshift:1.8 --from=registry.access.redhat.com/fuse
 $ cd my_openshift/spring-boot-camel-amq
 ----
 
-. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -120,12 +125,18 @@ $ cd my_openshift/spring-boot-camel-amq
 $ oc login -u system:admin
 $ oc apply -f src/main/resources/k8s
 ----
+. Wait until address space is ready:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
+----
 
 . Build and deploy the project to the OpenShift cluster:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.7
+$ mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
@@ -133,27 +144,30 @@ Wait until you can see that the pod for the `spring-boot-camel-amq` has started 
 
 . On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-. Switch to tab `Logs` and then see the messages sent by Camel.
-
-== Integration Testing
-
-The example includes a [Arquillian Cube Openshift](https://github.com/arquillian/arquillian-cube/tree/master/openshift) Kubernetes Integration Test. 
-Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
-
-	mvn test -Dtest=*KT
-
-The test is disabled by default and has to be enabled using `-Dtest`. [Arquillian Cube](https://github.com/arquillian/arquillian-cube/tree/master/openshift) provide more information on writing full fledged black box integration tests for Kubernetes. 
+. Switch to tab `Logs` and then see the messages sent by Camel:
+----
+...
+2021-03-05 10:12:54,502 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order166.xml
+2021-03-05 10:12:54,526 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order166.xml to the UK
+2021-03-05 10:12:54,527 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order166.xml
+2021-03-05 10:12:59,527 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order167.xml
+2021-03-05 10:12:59,556 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order167.xml to the UK
+2021-03-05 10:12:59,557 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order167.xml
+2021-03-05 10:13:04,558 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order168.xml
+2021-03-05 10:13:04,568 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order168.xml to the US
+...
+----
 
 == Running the quickstart standalone on your machine
 
 To run this quickstart as a standalone project on your local machine:
 
-. You need to have a running instance of EnMasse with messaging user `admin:test` and queue `incomingOrders`.
+. You need to have a running instance of AMQ Broker with messaging user `user1:test` and queue `incomingOrders`.
 +
-You can use EnMasse instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
-use the correct remote instance of EnMasse.
+You can use AMQ Broker instance from previous steps. You need to configure the `src/main/resources/application.properties` file in order to
+use the correct remote instance of AMQ Broker.
 +
-Get remote url of EnMasse instance by running the following command:
+Get remote url of AMQ Broker instance by running the following command:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]

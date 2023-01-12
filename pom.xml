@@ -33,11 +33,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the Fuse version you want to use here -->
-        <fuse.bom.version>7.7.0.fuse-770012-redhat-00002</fuse.bom.version>
+        <fuse.bom.version>7.11.1.fuse-sb2-7_11_1-00017</fuse.bom.version>
+        <docker.image.version>1.11</docker.image.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -100,25 +101,23 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.arquillian.cube</groupId>
-            <artifactId>arquillian-cube-openshift</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient-osgi</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>io.fabric8</groupId>
-            <artifactId>kubernetes-assertions</artifactId>
+            <artifactId>kubernetes-model</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>openshift-client</artifactId>
+            <version>4.6.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -148,7 +147,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <argLine>-DenableImageStreamDetection=true</argLine>
+                    <rerunFailingTestsCount>3</rerunFailingTestsCount>
                     <excludes>
                         <exclude>**/*KT.java</exclude>
                     </excludes>
@@ -180,23 +179,64 @@
         </profile>
         <profile>
             <id>openshift</id>
+            <properties>
+                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-rhel8:${docker.image.version}</jkube.generator.from>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.jboss.redhat-fuse</groupId>
-                        <artifactId>fabric8-maven-plugin</artifactId>
+                        <artifactId>openshift-maven-plugin</artifactId>
                         <version>${fuse.bom.version}</version>
                         <executions>
                             <execution>
                                 <goals>
                                     <goal>resource</goal>
                                     <goal>build</goal>
+                                    <goal>apply</goal>
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <resources>
+                                <labels>
+                                <pod>
+                                    <property>
+                                    <name>com.company</name>
+                                    <value>Red_Hat</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.prod_name</name>
+                                    <value>Red_Hat_Integration</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.prod_ver</name>
+                                    <value>7.12</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.comp</name>
+                                    <value>spring-boot-camel-amq</value>
+                                    </property>
+                                    <property>
+                                    <name>rht.comp_ver</name>
+                                    <value>${fuse.bom.version}</value>
+                                    </property>
+                                </pod>
+                                </labels>
+                            </resources>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>java11</id>
+            <properties>
+                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-jdk11-rhel8:${docker.image.version}</jkube.generator.from>
+            </properties>
+            <activation>
+                <jdk>[11,)</jdk>
+            </activation>
         </profile>
     </profiles>
 
