@@ -3,10 +3,11 @@ kind: MessagingUser
 metadata:
   name: spring-boot-camel-amq.client
 spec:
-  username: admin
+  username: user1
   authentication:
     type: password
     password: dGVzdA==
   authorization:
-    - operations: ["send", "recv"]
-      addresses: ["incomingOrders"]
+    - addresses: ["incomingOrders","topic*"]
+      operations: ["send", "recv"]
+

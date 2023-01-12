@@ -4,17 +4,17 @@
     "metadata": {
         "name": "amq-test",
         "annotations": {
-            "description": "An ActiveMQ Broker for Arquillian Tests."
+            "description": "An ActiveMQ Broker for Tests."
         }
     },
     "items": [
         {
             "kind": "ImageStream",
-            "apiVersion": "v1",
+            "apiVersion": "image.openshift.io/v1",
             "metadata": {
-                "name": "jboss-amq-63",
+                "name": "jboss-amq-78",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 7.8"
                 }
             },
             "spec": {
@@ -22,14 +22,14 @@
                     {
                         "name": "1.3",
                         "annotations": {
-                            "description": "JBoss A-MQ 6.3 broker image.",
+                            "description": "JBoss A-MQ 7.8 broker image.",
                             "iconClass": "icon-jboss",
                             "tags": "messaging,amq,jboss",
-                            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+                            "openshift.io/display-name": "Red Hat JBoss A-MQ 7.8"
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.3"
+                            "name": "registry.redhat.io/amq7/amq-broker:7.8"
                         }
                     }
                 ]
@@ -67,7 +67,7 @@
         },
         {
             "kind": "DeploymentConfig",
-            "apiVersion": "v1",
+            "apiVersion": "apps.openshift.io/v1",
             "metadata": {
                 "name": "broker-amq",
                 "labels": {
@@ -91,7 +91,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-63:1.3"
+                                "name": "jboss-amq-78:1.3"
                             }
                         }
                     },
@@ -116,7 +116,7 @@
                         "containers": [
                             {
                                 "name": "broker-amq",
-                                "image": "jboss-amq-63",
+                                "image": "jboss-amq-78",
                                 "imagePullPolicy": "Always",
                                 "readinessProbe": {
                                     "exec": {
@@ -147,7 +147,7 @@
                                 "env": [
                                     {
                                         "name": "AMQ_USER",
-                                        "value": "admin"
+                                        "value": "user1"
                                     },
                                     {
                                         "name": "AMQ_PASSWORD",

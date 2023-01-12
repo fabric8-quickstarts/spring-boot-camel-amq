@@ -3,8 +3,8 @@ kind: AddressSpace
 metadata:
   name: spring-boot-camel-amq
 spec:
-  type: brokered
-  plan: brokered-single-broker
+  type: standard
+  plan: standard-unlimited
   endpoints:
   - name: messaging
     service: messaging
