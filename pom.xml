@@ -34,7 +34,7 @@
 
         <!-- configure the Fuse version you want to use here -->
         <fuse.bom.version>7.11.1.fuse-sb2-7_11_1-00017</fuse.bom.version>
-        <docker.image.version>1.11</docker.image.version>
+        <docker.image.version>1.12</docker.image.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
