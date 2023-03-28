@@ -29,7 +29,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/amq7/amq-broker:7.10"
+                            "name": "registry.redhat.io/amq7/amq-broker-rhel8:7.10"
                         }
                     }
                 ]
