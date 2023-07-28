@@ -33,8 +33,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the Fuse version you want to use here -->
-        <fuse.bom.version>7.11.1.fuse-sb2-7_11_1-00017</fuse.bom.version>
-        <docker.image.version>1.12</docker.image.version>
+        <fuse.bom.version>7.12.0.fuse-7_12_0-00016-redhat-00001</fuse.bom.version>
+        <docker.image.version>1.13</docker.image.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -211,7 +211,7 @@
                                     </property>
                                     <property>
                                     <name>rht.prod_ver</name>
-                                    <value>7.12.0</value>
+                                    <value>7.13.0</value>
                                     </property>
                                     <property>
                                     <name>rht.comp</name>
@@ -235,7 +235,16 @@
                 <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-jdk11-rhel8:${docker.image.version}</jkube.generator.from>
             </properties>
             <activation>
-                <jdk>[11,)</jdk>
+                <jdk>[11,17)</jdk>
+            </activation>
+        </profile>
+        <profile>
+            <id>java17</id>
+            <properties>
+                <jkube.generator.from>registry.redhat.io/fuse7/fuse-java-openshift-jdk17-rhel8:${docker.image.version}</jkube.generator.from>
+            </properties>
+            <activation>
+                <jdk>[17,)</jdk>
             </activation>
         </profile>
     </profiles>

@@ -101,13 +101,13 @@ $ oc new-project MY_PROJECT_NAME
 ----
 
 . Configure Red Hat Container Registry authentication (if it is not configured).
-Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.10/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.13/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
 
 . Import base images in your newly created project (MY_PROJECT_NAME):
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
+$ oc import-image fuse-java-openshift:1.13 --from=registry.redhat.io/fuse7/fuse-java-openshift-rhel8:1.13 --confirm
 ----
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
@@ -136,7 +136,7 @@ $ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
+$ mvn clean -DskipTests oc:deploy -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.13
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
