@@ -107,7 +107,7 @@ Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.13/html-sing
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:1.13 --from=registry.redhat.io/fuse7/fuse-java-openshift-rhel8:1.13 --confirm
+$ oc import-image fuse-java-openshift:1.13 --from=registry.redhat.io/fuse7/fuse-java-openshift:1.13 --confirm
 ----
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-amq`) :
